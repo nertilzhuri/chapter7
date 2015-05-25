@@ -4,6 +4,6 @@
 	},
 	
 	{
-		"module" : "test_mod"
+		"module" : "environment"
 	}
 ]
