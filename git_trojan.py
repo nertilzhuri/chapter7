@@ -126,6 +126,6 @@ while True:
             t.start()
             time.sleep(random.randint(1,10))
             
-    time.sleep(random.randint(1000,10000))#dusguise in network, attempt to sleep
+    time.sleep(random.randint(1000,2000))#dusguise in network, attempt to sleep
     #or generate random trafic to common pages
         
