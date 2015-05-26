@@ -1,9 +1,11 @@
 [
 	{
-		"module" : "dirlister"
+		"module" : "dirlister",
+		"time"	 : "5"
 	},
 	
 	{
-		"module" : "environment"
+		"module" : "test_mod",
+		"time"	 : "5"
 	}
 ]

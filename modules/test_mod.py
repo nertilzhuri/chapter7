@@ -6,6 +6,7 @@ def run(**args):
 	s = ""
 	
 	s += "hello World\n"
-	s += "Testing trojan"
+	s += "Testing trojan\n"
+	s += "Args are: %s" % args
 	
 	return s
