@@ -103,7 +103,7 @@ def store_module_result(data):
 def module_runner(module, time):
 
     task_queue.put(1)
-    result = sys.modules[module].run()
+    result = sys.modules[module].run(tm=time)
     task_queue.get()
     
     # store the result in our repo

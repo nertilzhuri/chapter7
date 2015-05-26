@@ -111,7 +111,7 @@ def startLog():
         logger += str((time.strftime("%d/%m/%Y - %H:%M:%S")))
         logger += "\n"
 
-        t = Timer(30.0, on_timer) # Quit after 5 seconds
+        t = Timer(300, on_timer) # Quit after 300 (5 minutes) seconds
         t.start()
 
         # create and register a hook manager 
